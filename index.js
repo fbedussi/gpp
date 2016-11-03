@@ -31,7 +31,6 @@ process.argv.slice(2).forEach(function (arg) {
 fs.walk(sourceDir)
     .on('data', function (item) {
         var file = item.path;
-        //console.log(file);
         if (item.stats.isDirectory() || path.dirname(file).match(excludeDir)) {
             return;
         }
@@ -41,7 +40,6 @@ fs.walk(sourceDir)
         fs.stat(destFolder, function(err, stats) {
             if (err) {
                 fs.mkdirs(destFolder, function(e) {
-                    console.log('Non existing folder. E: ',e, ' Src: ', file, ' Dest: ', file.replace(sourceDir, destDir))
                     pp.preprocessFileSync(file, file.replace(sourceDir, destDir), context, options);
                 });
             } else {
@@ -49,7 +47,12 @@ fs.walk(sourceDir)
             }
         });
     })
-    .on('end', function () {
-        console.log('Build ended')
+    .on('end', function (err) {
+        if (err) {
+            console.log('Build ERROR: ', err);
+            return;
+        }
+        
+        console.log('Build ended successfully')
     })
 ;
