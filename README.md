@@ -8,6 +8,9 @@ Just make sure to place them in a Gherkin comment:
 #@include ../../partials/_go_to_cart.feature
 ````
 
+##Install
+As a common node module, either locally or globally
+
 ##Usage
 ````
 buildGherkin [optionName=option]
