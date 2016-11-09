@@ -25,6 +25,12 @@ process.argv.slice(2).forEach(function (arg) {
         case 'excludeRegExp':
             excludeDir = new RegExp(param[1]);
             break;
+        case 'env':
+            context.env = param[1];
+            break;
+        case 'varfile':
+            context = require(path.resolve(param[1]))
+            break;
     }
 });
 
