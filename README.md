@@ -15,7 +15,7 @@ npm install [-g] gherkin-preprocessor
 ````
 or clone the repo
 https://github.com/fbedussi/gpp
- and install as a module with `npm link`.
+ and install it as a module with `npm link`.
 
 ##Usage
 ````
@@ -52,7 +52,7 @@ This variable could be used in if statements:
 @dev
 #@endif
 ````
-The code above will render the `@prod` tag in the compiled Gherkin if `env` is set to `prod` ir the tag `@dev` if it's set to `dev`.
+The code above will render the `@prod` tag in the compiled Gherkin if `env` is set to `prod`, or the tag `@dev` if it's set to `dev`.
 
 ###varFile
 The path to a json file containing the variables to be uesed by the preprocessor in if statemets.
