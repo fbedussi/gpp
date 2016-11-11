@@ -25,23 +25,43 @@ buildGherkin [optionName=option] [optionName=option] [optionName=option]
 ##Options
 ###source
 *Default: 'features_src'*
-
+````
+buildGherkin source=mySourceFolder
+````
 The source folder path (relative or absolute)
 
 ###dest
 *Default: 'features'*
-
+````
+buildGherkin dest=myDestFolder
+````
 The destination folder path (relative or absolute)
+
+###w
+````
+buildGherkin w
+````
+Watch source folder for changes
 
 ###exclude
 *Default: 'partials'*
+````
+buildGherkin exclude=myPartial
+````
+
 
 The name of the folder to exclude
 
 ###excludeRegExp
+````
+buildGherkin excludeRegExp=partial|otherFolder
+````
 The regExp pattern to match the folder(s) to exclude
 
 ###env
+````
+buildGherkin env=prod
+````
 The name of the environment in which the Gherkin is intended to run, e.g. "prod", "dev", ecc.
 This variable could be used in if statements:
 ````
@@ -55,16 +75,13 @@ This variable could be used in if statements:
 The code above will render the `@prod` tag in the compiled Gherkin if `env` is set to `prod`, or the tag `@dev` if it's set to `dev`.
 
 ###varFile
-The path to a json file containing the variables to be uesed by the preprocessor in if statemets.
+````
+buildGherkin varFile=myVar.json
+````
+The path to a json file containing the variables to be used by the preprocessor in if statements.
 
 ##Examples
 ````
 buildGherkin source=mySourceFolder dest=myDestFolder exclude=myPartial
-````
-````
-buildGherkin source=mySourceFolder dest=myDestFolder excludeRegExp=partial|otherFolder
-````
-````
-buildGherkin source=mySourceFolder dest=myDestFolder env=prod
 ````
 

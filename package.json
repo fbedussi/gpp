@@ -1,7 +1,7 @@
 {
   "name": "gherkin-preprocessor",
-  "version": "1.0.1",
-  "description": "Allows some preprocessing tecniques for Gherkin files, such as importing partials",
+  "version": "1.1.1",
+  "description": "Allows some preprocessing tecniques for Gherkin files, such as importing partials and if statements",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/fbedussi/gpp#readme",
   "dependencies": {
+    "chokidar": "^1.6.1",
     "fs-extra": "^1.0.0",
     "preprocess": "^3.1.0"
   },
