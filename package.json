@@ -1,6 +1,6 @@
 {
   "name": "gherkin-preprocessor",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Allows some preprocessing tecniques for Gherkin files, such as importing partials and if statements",
   "main": "index.js",
   "scripts": {
