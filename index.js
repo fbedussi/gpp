@@ -2,7 +2,9 @@ var pp = require('preprocess');
 var path = require('path');
 var fs = require('fs-extra');
 var chokidar = require('chokidar');
-var context = {};
+var context = {
+    env: 'dev'
+};
 var options = {
     type: 'sh'
 };
