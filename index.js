@@ -42,6 +42,8 @@ process.argv.slice(2).forEach(function (arg) {
 });
 
 function build() {
+    var processQueue = [];
+
     fs.emptyDir(destDir, function () {
         fs.walk(sourceDir)
             .on('data', function (item) {
@@ -53,17 +55,16 @@ function build() {
                 var destFolder = path.dirname(file).replace(sourceDir, destDir);
 
                 fs.mkdirs(destFolder, function (e) {
-                    pp.preprocessFileSync(file, file.replace(sourceDir, destDir), context, options);
+                    processQueue.push(new Promise((fullfill, reject) => {
+                        pp.preprocessFile(file, file.replace(sourceDir, destDir), context, (err, result) => {err ? reject(err) : fullfill()}, options);
+                    }));
                 });
             })
-            .on('end', function (err) {
-                if (err) {
-                    console.log('Build ERROR: ', err);
-                    return;
-                }
+        ;
 
-                console.log('Build ended successfully at:', Date("2015-03-25T12:00:00"));
-            })
+        Promise.all(processQueue)
+            .then(() => console.log('Build ended successfully at:', Date("2015-03-25T12:00:00")))
+            .catch(err => console.log('Build ERROR: ', err))
         ;
     });
 }
