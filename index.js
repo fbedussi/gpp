@@ -42,41 +42,37 @@ process.argv.slice(2).forEach(function (arg) {
 });
 
 function build() {
-    fs.walk(sourceDir)
-        .on('data', function (item) {
-            var file = item.path;
-            if (item.stats.isDirectory() || path.dirname(file).match(excludeDir)) {
-                return;
-            }
-
-            var destFolder = path.dirname(file).replace(sourceDir, destDir);
-
-            fs.stat(destFolder, function(err, stats) {
-                if (err) {
-                    fs.mkdirs(destFolder, function(e) {
-                        pp.preprocessFileSync(file, file.replace(sourceDir, destDir), context, options);
-                    });
-                } else {
-                    pp.preprocessFileSync(file, file.replace(sourceDir, destDir), context, options);
+    fs.emptyDir(destDir, function () {
+        fs.walk(sourceDir)
+            .on('data', function (item) {
+                var file = item.path;
+                if (item.stats.isDirectory() || path.dirname(file).match(excludeDir)) {
+                    return;
                 }
-            });
-        })
-        .on('end', function (err) {
-            if (err) {
-                console.log('Build ERROR: ', err);
-                return;
-            }
 
-            console.log('Build ended successfully at:', Date("2015-03-25T12:00:00"));
-        })
-    ;
+                var destFolder = path.dirname(file).replace(sourceDir, destDir);
+
+                fs.mkdirs(destFolder, function (e) {
+                    pp.preprocessFileSync(file, file.replace(sourceDir, destDir), context, options);
+                });
+            })
+            .on('end', function (err) {
+                if (err) {
+                    console.log('Build ERROR: ', err);
+                    return;
+                }
+
+                console.log('Build ended successfully at:', Date("2015-03-25T12:00:00"));
+            })
+        ;
+    });
 }
 
 build();
 
 if (watch) {
     console.log('I\'m watching: ', sourceDir);
-    chokidar.watch(sourceDir, {ignored: excludeDir}).on('change', () => {
+    chokidar.watch(sourceDir, { ignored: excludeDir }).on('change', () => {
         console.log('\nRebuilding again at:', Date("2015-03-25T12:00:00"));
         build();
     });
